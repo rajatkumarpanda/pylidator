@@ -10,4 +10,5 @@ schema = Schema({
 
 ## Check schema:
 
+payload = {'handler': 'dummy', 'user_id': '12345','mobile_no': "9492393425"}
 schema.check_schema(payload)
