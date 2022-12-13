@@ -1,13 +1,15 @@
 import re
-from abc import ABC
+from abc import ABC, abstractmethod
 
 
 class Check(ABC):
+
+    @abstractmethod
     def check_schema(self, key, request):
         pass
 
 
-class _Required:
+class _Required(Check):
     def __init__(self, required: bool):
         self.required = required
 
@@ -49,6 +51,18 @@ class _Type(Check):
     def check_schema(self, key, request):
         if not type(request[key]).__name__ == self.type:
             raise Exception(f'Type does not match for specified in schema for {key}.')
+
+
+class _Range(Check):
+
+    def check_schema(self, key, request):
+        pass
+
+
+class _Date(Check):
+
+    def check_schema(self, key, request):
+        pass
 
 
 class Schema:
