@@ -10,4 +10,4 @@ schema = Schema({
 
 ## Check schema:
 
-schema.check_schema
+schema.check_schema(payload)
