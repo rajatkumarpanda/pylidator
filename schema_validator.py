@@ -54,9 +54,12 @@ class _Type(Check):
 
 
 class _Range(Check):
+    def __init__(self, val_range: range):
+        self.val_range = val_range
 
     def check_schema(self, key, request):
-        pass
+        if not request[key] in self.val_range:
+            raise Exception(f'Value {request[key]} not in the specified range.')
 
 
 class _Date(Check):
@@ -75,7 +78,7 @@ class Schema:
                 constraint.check_schema(key, request)
 
 
-def import_schema_for_filed(required: bool, var_type: type, length: int, regex: str):
+def import_schema_for_filed(required: bool, var_type: type, length: int, regex: str, val_range: tuple = (0, 0)):
     schema_for_field = []
 
     if required:
@@ -86,5 +89,7 @@ def import_schema_for_filed(required: bool, var_type: type, length: int, regex: 
         schema_for_field.append(_Regex(regex))
     if var_type:
         schema_for_field.append(_Type(var_type.__name__))
+    if val_range:
+        schema_for_field.append(_Range(range(val_range[0], val_range[1])))
 
     return schema_for_field
