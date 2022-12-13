@@ -54,7 +54,6 @@ class _Type(Check):
 
 
 class _Range(Check):
-
     def __init__(self, val_range: range):
         self.val_range = val_range
 
